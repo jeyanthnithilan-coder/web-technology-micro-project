@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>EazyDiner Style - Restaurant Table Booking</title>
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto&display=swap" rel="stylesheet" />
+  
+  <style>
+    /* Reset and base */
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background-color: #f4f5f7;
+      color: #222;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    img {
+      max-width: 100%;
+      display: block;
+    }
+    button {
+      cursor: pointer;
+    }
+
+    /* Container */
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* Header */
+    header {
+      background: white;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+    .logo {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      font-size: 1.6rem;
+      color: #f05a28;
+      cursor: pointer;
+    }
+    .location-select {
+      display: flex;
+      align-items: center;
+      font-size: 0.9rem;
+      color: #666;
+      margin-left: 20px;
+    }
+    .location-select svg {
+      margin-right: 6px;
+      fill: #f05a28;
+    }
+    select {
+      font-size: 0.9rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 4px 8px;
+      margin-left: 6px;
+      cursor: pointer;
+    }
+    .search-bar {
+      flex: 1;
+      margin: 0 20px;
+      position: relative;
+    }
+    .search-bar input {
+      width: 100%;
+      padding: 10px 40px 10px 14px;
+      border-radius: 24px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+      transition: border-color 0.3s;
+    }
+    .search-bar input::placeholder {
+      color: #999;
+    }
+    .search-bar svg {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      fill: #f05a28;
+      width: 20px;
+      height: 20px;
+      pointer-events: none;
+    }
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+    .header-actions button, .header-actions a {
+      font-weight: 600;
+      font-size: 0.95rem;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      color: #f05a28;
+      padding: 8px 16px;
+      border-radius: 24px;
+      transition: background 0.3s, color 0.3s;
+      text-align: center;
+    }
+    .header-actions button:hover,
+    .header-actions a:hover {
+      background: #f05a28;
+      color: white;
+    }
+    .header-actions .login-btn {
+      background: #f05a28;
+      color: white;
+      border-radius: 24px;
+      padding: 8px 22px;
+    }
+    .header-actions .login-btn:hover {
+      background: #d44e24;
+    }
+
+    /* Banner */
+    .banner {
+      position: relative;
+      overflow: hidden;
+      max-width: 1200px;
+      margin: 20px auto 40px;
+      border-radius: 12px;
+    }
+    .banner img {
+      width: 100%;
+      height: 320px;
+      object-fit: cover;
+      border-radius: 12px;
+      filter: brightness(0.6);
+    }
+    .banner-content {
+      position: absolute;
+      top: 50%;
+      left: 3rem;
+      transform: translateY(-50%);
+      color: white;
+      z-index: 10;
+      max-width: 400px;
+    }
+    .banner-content h2 {
+      font-size: 2.8rem;
+      margin: 0 0 8px;
+      font-weight: 700;
+      line-height: 1.1;
+    }
+    .banner-content .promo-code {
+      background: #f05a28;
+      padding: 8px 14px;
+      font-weight: 700;
+      font-size: 1.3rem;
+      display: inline-block;
+      border-radius: 6px;
+      box-shadow: 0 6px 10px rgba(240, 90, 40, 0.4);
+      user-select: all;
+    }
+    .banner-content p {
+      margin: 4px 0 0;
+      font-weight: 400;
+      font-size: 1rem;
+      opacity: 0.85;
+    }
+    /* Banner navigation */
+    .banner-nav {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      transform: translateY(-50%);
+      display: flex;
+      justify-content: space-between;
+      left: 0;
+      right: 0;
+      padding: 0 15px;
+      box-sizing: border-box;
+      pointer-events: none;
+      user-select: none;
+    }
+    .banner-nav button {
+      background: rgba(255,255,255,0.7);
+      border: none;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      cursor: pointer;
+      pointer-events: all;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: background 0.3s;
+    }
+    .banner-nav button:hover {
+      background: rgba(255,255,255,0.9);
+    }
+    .banner-nav svg {
+      width: 16px;
+      height: 16px;
+      fill: #f05a28;
+    }
+
+    /* Booking Type Buttons */
+    .booking-types {
+      max-width: 1200px;
+      margin: 0 auto 40px;
+      display: flex;
+      gap: 16px;
+      padding: 0 1rem;
+    }
+    .booking-types button {
+      flex: 1;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      border: none;
+      font-size: 1rem;
+      padding: 16px 10px;
+      cursor: pointer;
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      font-weight: 600;
+      color: #333;
+      transition: box-shadow 0.3s, transform 0.3s;
+      user-select: none;
+      position: relative;
+    }
+    .booking-types button img {
+      height: 46px;
+      width: 66px;
+      border-radius: 6px;
+      object-fit: contain;
+      position: absolute;
+      right: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    .booking-types button:hover,
+    .booking-types button.active {
+      box-shadow: 0 8px 15px rgba(240,90,40,0.4);
+      transform: translateY(-3px);
+      color: #f05a28;
+    }
+
+    /* Category scroller */
+    .category-section {
+      max-width: 1200px;
+      margin: 0 auto 30px;
+      padding: 0 1rem;
+    }
+    h3.category-title {
+      font-weight: 600;
+      margin-bottom: 15px;
+      font-size: 1.25rem;
+      color: #333;
+    }
+    .categories {
+      display: flex;
+      overflow-x: auto;
+      gap: 16px;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .categories::-webkit-scrollbar {
+      display: none;
+    }
+    .category-item {
+      flex: 0 0 auto;
+      background: white;
+      border-radius: 12px;
+      padding: 12px 18px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 600;
+      color: #333;
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s;
+      user-select: none;
+    }
+    .category-item img {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .category-item:hover,
+    .category-item.active {
+      background: #f05a28;
+      color: white;
+    }
+    
+    /* Modal style */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      z-index: 5000;
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-overlay[aria-hidden="false"] {
+      display: flex;
+    }
+    .modal-content {
+      background: white;
+      border-radius: 14px;
+      padding: 28px 24px;
+      max-width: 400px;
+      width: 95%;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+      position: relative;
+      user-select:none;
+    }
+    .modal-close-btn {
+      position: absolute;
+      top: 10px;
+      right: 14px;
+      font-size: 2rem;
+      background: none;
+      border: none;
+      color: #f05a28;
+      cursor: pointer;
+    }
+    /* Modal steps */
+    .modal-step {
+      display: none;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .modal-step.active {
+      display: flex;
+    }
+    label {
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+    input, select, button {
+      font-size: 1rem;
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: 1.5px solid #ccc;
+    }
+    button.primary {
+      background: #f05a28;
+      border: none;
+      color: white;
+      font-weight: 900;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-top: 8px;
+      transition: background-color 0.3s;
+    }
+    button.primary:hover {
+      background: #d45c27;
+    }
+    .tables-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(90px,1fr));
+      gap: 14px;
+      margin-top: 10px;
+    }
+    .table-slot {
+      background: #f0f0f0;
+      border-radius: 10px;
+      padding: 14px;
+      text-align: center;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background-color 0.25s ease;
+      user-select: none;
+    }
+    .table-slot.available:hover {
+      background: #f7b499;
+    }
+    .table-slot.selected {
+      background: #f05a28;
+      color: white;
+    }
+    .receipt {
+      font-size: 1rem;
+      line-height: 1.4;
+    }
+    .receipt strong {
+      color: #f05a28;
+    }
+    /* Responsive */
+    @media (max-width: 768px) {
+      .banner-content h2 {
+        font-size: 2rem;
+      }
+      .banner-content {
+        left: 1rem;
+        max-width: 80%;
+      }
+      .booking-types {
+        flex-direction: column;
+      }
+      .booking-types button {
+        justify-content: center;
+      }
+      .category-item {
+        font-size: 0.9rem;
+        padding: 10px 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="header-inner">
+      <div style="display: flex; align-items:center;">
+        <div class="logo">eazydiner</div>
+        <div class="location-select" title="Your Location" aria-label="Select your location">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 00-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 00-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z"/></svg>
+          <select aria-label="Location selector">
+            <option>Delhi NCR</option>
+            <option>Mumbai</option>
+            <option>Bangalore</option>
+            <option>Chennai</option>
+            <option>Kolkata</option>
+          </select>
+        </div>
+      </div>
+      <div class="search-bar" role="search">
+        <input type="search" placeholder="Search restaurants, locations or cuisines" aria-label="Search restaurants, locations or cuisines" />
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M21 21l-5.2-5.2M9.5 17a7.5 7.5 0 1 0 0-15 7.5 7.5 0 0 0 0 15z" stroke="none" fill="currentColor"/>
+        </svg>
+      </div>
+      <nav class="header-actions" aria-label="User Actions">
+        <button type="button" aria-label="Be Prime Promotion">Be Prime!</button>
+        <a href="#" aria-label="Contact Us">Contact Us</a>
+        <button type="button" class="login-btn" aria-label="Login to your account">Login</button>
+      </nav>
+    </div>
+  </header>
+  
+  <!-- Banner -->
+  <section class="banner" role="region" aria-label="Promotional banner">
+    <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80" alt="Delicious plated meal with wine" />
+    <div class="banner-content">
+      <div style="font-weight:600; font-size: 1.1rem; margin-bottom: 8px;">USE CODE:</div>
+      <div class="promo-code" tabindex="0">EAZYDINER</div>
+      <p>Get up to <strong>₹300 OFF</strong> on your first payment</p>
+    </div>
+    <div class="banner-nav">
+      <button aria-label="Previous slide">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"/></svg>
+      </button>
+      <button aria-label="Next slide">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- Booking Types -->
+  <section class="booking-types" role="region" aria-label="Booking types">
+    <button type="button" class="active" aria-pressed="true" aria-label="Book a table" id="bookTableBtn">
+      Book A Table
+      <img src="https://cdn-icons-png.flaticon.com/512/190/190067.png" alt="Table set with dining" />
+    </button>
+    <button type="button" aria-label="Walk-in dining option">
+      Walk-in Dining
+      <img src="https://cdn-icons-png.flaticon.com/512/1046/1046784.png" alt="Burger with drink" />
+    </button>
+  </section>
+  
+  <!-- Categories -->
+  <section class="category-section" aria-label="Food categories">
+    <h3 class="category-title">Hi Foodie, Dine Anytime!</h3>
+    <div class="categories" role="list" tabindex="0">
+      <div class="category-item" role="listitem" tabindex="0">
+        <img src="https://cdn-icons-png.flaticon.com/512/1046/1046771.png" alt="Lunch Icon" />
+        Lunch
+      </div>
+      <div class="category-item" role="listitem" tabindex="0">
+        <img src="https://cdn-icons-png.flaticon.com/512/1046/1046783.png" alt="Dinner Icon" />
+        Dinner
+      </div>
+      <div class="category-item" role="listitem" tabindex="0">
+        <img src="https://cdn-icons-png.flaticon.com/512/2965/2965567.png" alt="Fast Food Icon" />
+        Fast Food
+      </div>
+      <div class="category-item" role="listitem" tabindex="0">
+        <img src="https://cdn-icons-png.flaticon.com/512/684/684908.png" alt="Near me Icon" />
+        Near Me
+      </div>
+      <div class="category-item" role="listitem" tabindex="0">
+        <img src="https://cdn-icons-png.flaticon.com/512/1046/1046787.png" alt="Breakfast Icon" />
+        Breakfast
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal for Booking Flow -->
+  <div class="modal-overlay" id="bookingModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-content">
+      <button class="modal-close-btn" id="modalCloseBtn" aria-label="Close booking modal">&times;</button>
+      <h2 id="modalTitle">Book a Table</h2>
+
+      <!-- Step 1: Date & Time -->
+      <form id="step1" class="modal-step active" aria-label="Select date and time">
+        <label for="bookingDate">Choose Date:</label>
+        <input type="date" id="bookingDate" required min="" aria-required="true" />
+        <label for="bookingTime">Choose Time Slot:</label>
+        <select id="bookingTime" required aria-required="true">
+          <option value="" disabled selected>Select a time slot</option>
+          <option>12:00 PM</option>
+          <option>12:30 PM</option>
+          <option>1:00 PM</option>
+          <option>1:30 PM</option>
+          <option>2:00 PM</option>
+          <option>6:00 PM</option>
+          <option>6:30 PM</option>
+          <option>7:00 PM</option>
+          <option>7:30 PM</option>
+          <option>8:00 PM</option>
+        </select>
+        <button type="submit" class="primary">Next</button>
+      </form>
+
+      <!-- Step 2: Select Table Slots -->
+      <section id="step2" class="modal-step" aria-label="Select your table">
+        <p>Select your preferred table from available slots:</p>
+        <div class="tables-grid" id="tablesGrid" role="list" aria-live="polite"></div>
+        <button id="step2Back" class="primary" style="background:#777;">Back</button>
+      </section>
+
+      <!-- Step 3: Confirmation -->
+      <form id="step3" class="modal-step" aria-label="Confirm your reservation">
+        <label for="custName">Your Name:</label>
+        <input type="text" id="custName" required placeholder="Full Name" aria-required="true" />
+        <label for="custPhone">Phone Number:</label>
+        <input type="tel" id="custPhone" required pattern="[0-9]{10}" placeholder="10 digit phone number" aria-required="true" />
+        <button type="submit" class="primary">Confirm Booking</button>
+        <button type="button" id="step3Back" class="primary" style="background:#777; margin-top: 6px;">Back</button>
+      </form>
+
+      <!-- Step 4: Receipt -->
+      <section id="step4" class="modal-step" aria-label="Booking receipt">
+        <h3>Your Booking Receipt</h3>
+        <div class="receipt" id="bookingReceipt"></div>
+        <button id="closeReceipt" class="primary" style="margin-top: 20px;">Close</button>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    // Setup min date
+    const todayStr = new Date().toISOString().split('T')[0];
+    document.getElementById('bookingDate').setAttribute('min', todayStr);
+
+    // Modal elements
+    const modal = document.getElementById('bookingModal');
+    const modalCloseBtn = document.getElementById('modalCloseBtn');
+    const step1 = document.getElementById('step1');
+    const step2 = document.getElementById('step2');
+    const step3 = document.getElementById('step3');
+    const step4 = document.getElementById('step4');
+    const bookingDateInput = document.getElementById('bookingDate');
+    const bookingTimeSelect = document.getElementById('bookingTime');
+    const tablesGrid = document.getElementById('tablesGrid');
+    const step2BackBtn = document.getElementById('step2Back');
+    const custName = document.getElementById('custName');
+    const custPhone = document.getElementById('custPhone');
+    const step3BackBtn = document.getElementById('step3Back');
+    const bookingReceipt = document.getElementById('bookingReceipt');
+    const closeReceiptBtn = document.getElementById('closeReceipt');
+    const bookTableBtn = document.getElementById('bookTableBtn');
+
+    let selectedTableId = null;
+    let bookingInfo = {};
+
+    // Helper to show one step only
+    function showStep(stepNum) {
+      [step1, step2, step3, step4].forEach((el, i) => {
+        el.classList.toggle('active', i+1 === stepNum);
+      });
+    }
+
+    function openModal() {
+      showStep(1);
+      modal.style.display = 'flex';
+      modal.setAttribute('aria-hidden', 'false');
+      bookingDateInput.value = todayStr;
+      bookingTimeSelect.value = '';
+      selectedTableId = null;
+      bookingInfo = {};
+    }
+
+    function closeModal() {
+      modal.style.display = 'none';
+      modal.setAttribute('aria-hidden', 'true');
+    }
+
+    // Simulated table availability model
+    function getAvailableTables(date, time) {
+      // 8 tables, randomly mark some booked based on hash from date/time
+      const allTables = Array.from({length:8}, (_, i) => ({id: i+1, name: `Table ${i+1}`}));
+      const bookedIds = [
+        ((date.charCodeAt(0)+time.charCodeAt(0))%8)+1,
+        ((date.charCodeAt(1)+time.charCodeAt(1))%8)+1,
+        ((date.charCodeAt(2)+time.charCodeAt(2))%8)+1
+      ];
+      return allTables.map(t => ({
+        ...t,
+        available: !bookedIds.includes(t.id)
+      }));
+    }
+
+    // Load tables for chosen date and time
+    function loadTables(date, time) {
+      tablesGrid.innerHTML = '';
+      const tables = getAvailableTables(date, time);
+      tables.forEach(t => {
+        const div = document.createElement('div');
+        div.className = 'table-slot';
+        div.textContent = t.available ? t.name : `${t.name} (Booked)`;
+        if (t.available) {
+          div.classList.add('available');
+          div.setAttribute('role','button');
+          div.setAttribute('tabindex','0');
+          div.setAttribute('aria-pressed','false');
+          div.setAttribute('aria-label', `${t.name} available`);
+          div.addEventListener('click', () => selectTable(div, t.id));
+          div.addEventListener('keydown', e => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              selectTable(div, t.id);
+            }
+          });
+        } else {
+          div.style.color = '#999';
+        }
+        tablesGrid.appendChild(div);
+      });
+      selectedTableId = null;
+      showStep(2);
+    }
+
+    // Select table
+    function selectTable(div, id) {
+      // Deselect last
+      const prevSelected = tablesGrid.querySelector('.table-slot.selected');
+      if (prevSelected) {
+        prevSelected.classList.remove('selected');
+        prevSelected.setAttribute('aria-pressed','false');
+      }
+      // Select new
+      div.classList.add('selected');
+      div.setAttribute('aria-pressed','true');
+      selectedTableId = id;
+      // Move to next step after selection
+      showStep(3);
+      custName.value = '';
+      custPhone.value = '';
+      custName.focus();
+    }
+
+    // Show receipt
+    function renderReceipt() {
+      bookingReceipt.innerHTML = `
+        <p><strong>Name:</strong> ${bookingInfo.name}</p>
+        <p><strong>Phone:</strong> ${bookingInfo.phone}</p>
+        <p><strong>Date:</strong> ${bookingInfo.date}</p>
+        <p><strong>Time:</strong> ${bookingInfo.time}</p>
+        <p><strong>Table:</strong> ${bookingInfo.table}</p>
+        <p><strong>Amount Payable:</strong> ₹500 (standard booking fee)</p>
+        <p>Thank you for booking with eazydiner!</p>
+      `;
+    }
+
+    // Event Listeners
+    bookTableBtn.addEventListener('click', openModal);
+    modalCloseBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', e => {
+      if (e.target === modal) {
+        closeModal();
+      }
+    });
+
+    // Step 1 Submit (Date & Time)
+    step1.addEventListener('submit', e => {
+      e.preventDefault();
+      if (!bookingDateInput.value) {
+        alert('Please select a date.');
+        bookingDateInput.focus();
+        return;
+      }
+      if (!bookingTimeSelect.value) {
+        alert('Please select a time slot.');
+        bookingTimeSelect.focus();
+        return;
+      }
+      bookingInfo.date = bookingDateInput.value;
+      bookingInfo.time = bookingTimeSelect.value;
+      loadTables(bookingInfo.date, bookingInfo.time);
+    });
+
+    // Step 2 Back
+    step2BackBtn.addEventListener('click', e => {
+      e.preventDefault();
+      showStep(1);
+    });
+
+    // Step 3 Submit (User info)
+    step3.addEventListener('submit', e => {
+      e.preventDefault();
+      if (!custName.value.trim()) {
+        alert('Please enter your name.');
+        custName.focus();
+        return;
+      }
+      if (!custPhone.value.match(/^\d{10}$/)) {
+        alert('Please enter a valid 10-digit phone number.');
+        custPhone.focus();
+        return;
+      }
+      bookingInfo.name = custName.value.trim();
+      bookingInfo.phone = custPhone.value.trim();
+      bookingInfo.table = `Table ${selectedTableId}`;
+      renderReceipt();
+      showStep(4);
+    });
+
+    // Step 3 Back
+    step3BackBtn.addEventListener('click', e => {
+      e.preventDefault();
+      showStep(2);
+    });
+
+    // Step 4 Close
+    closeReceiptBtn.addEventListener('click', () => {
+      closeModal();
+    });
+  </script>
+
+</body>
+</html>
